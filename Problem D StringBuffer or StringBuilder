@@ -1,0 +1,28 @@
+import java.util.Scanner;    
+import java.lang.String;    
+    
+public class Main {    
+    
+            public static void main(String[] args) {    
+                Scanner input = new Scanner(System.in);    
+                int num;    
+               String s[] =new String[100];    
+                num= input.nextInt();    
+                for(int i=0;i<4;i++) {    
+                      s[i] = input.nextLine();    
+                  }    
+                  String r1 = s[1].replace(s[2], s[3]);    
+                  String reverse = new StringBuffer(r1).reverse().toString();    
+                  System.out.println(reverse);    
+                  num=num-1;    
+                while(num!=0){    
+                    for(int i=0;i<3;i++) {    
+                        s[i] = input.nextLine();    
+                    }    
+                    String r2 = s[0].replace(s[1], s[2]);    
+                    String reverse2 = new StringBuffer(r2).reverse().toString();    
+                    System.out.println(reverse2);    
+                    num--;    
+              }    
+            }    
+        }  
