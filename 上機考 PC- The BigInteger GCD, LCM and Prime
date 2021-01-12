@@ -1,0 +1,29 @@
+import java.util.Scanner;  
+import java.math.BigInteger;  
+public class Main {  
+  
+    public static void main(String[] args) {  
+            Scanner input= new Scanner(System.in);  
+            while (input.hasNext()) {  
+                int count=0;  
+                BigInteger a1,a2,gcd,a3,lcm,b1;  
+                a1=input.nextBigInteger();  
+                a2=input.nextBigInteger();  
+                gcd = a1.gcd(a2);  
+  
+                a3=a1.multiply(a2);  
+                lcm=a3.divide(gcd);  
+                System.out.println(gcd+" "+lcm);  
+                while(count<4){  
+                b1=lcm.nextProbablePrime();  
+                System.out.print(b1+" ");  
+                lcm=b1;  
+                count++;}  
+                if(count==4){  
+                    b1=lcm.nextProbablePrime();  
+                    System.out.println(b1);  
+                    count=0;  
+                }  
+            }  
+        }  
+    }  
