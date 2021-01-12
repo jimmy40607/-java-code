@@ -1,0 +1,22 @@
+import java.util.Scanner;  
+public class Main {  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+  
+        while (input.hasNext()) {  
+            int num = input.nextInt();  
+            int a = 2; //定義最小質因數  
+            while (a <= num) {  
+                if (num == a && num % a == 0) {  
+                    System.out.print(num + "\n");  
+                    break;  
+                } else if (num % a == 0) {  
+                    System.out.print(a + " ");  
+                    num = num / a;  
+                    continue;  
+                }  
+                a++;  
+            }  
+        }  
+    }  
+}  
