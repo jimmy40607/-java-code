@@ -1,0 +1,49 @@
+import java.util.Scanner;  
+import java.util.StringTokenizer;  
+import java.lang.*;  
+public class Main {  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+        String str = new String();  
+        str= input.nextLine();  
+        StringTokenizer st = new StringTokenizer(str,"+-*/()%");  
+        int count=0;  
+        int test;  
+        int x=0;  
+        float sum=0;  
+        float add=0;  
+        test=st.countTokens();  
+       String[] str1=new String[test];  
+        while(st.hasMoreTokens()) {  
+            str1[count] = st.nextToken();  
+            if (count+1 < test) {  
+                System.out.print(str1[count] + " "); }  
+            if (count+1 == test) {  
+                System.out.print(str1[count]);  
+                System.out.println(); }  
+            count++;  
+            add= Float.parseFloat(str1[x]);//Dealing with the third line  
+            sum=add+sum;  
+            x++; }  
+  
+        char[] a =new char[str.length()];  
+        for(int i=0;i<+str.length();i++){  
+            a[i]=str.charAt(i); }  
+        int flag=1;  
+        for(int i=0;i<+str.length();i++){  
+            if((a[i]=='+')||(a[i]=='-')||  
+                    (a[i]=='*')||(a[i]=='/')||  
+                    (a[i]=='(')||(a[i]==')')||(a[i]=='%'))//Determining symbol  
+            {  
+                if (flag == 0) {  
+                    System.out.print(" "+a[i]);  
+                } else {  
+                 System.out.print(a[i]);  
+                    flag = 0;  
+                }  
+            }  
+        }  
+       System.out.println();  
+       System.out.printf("%.3f\n",sum);//printf the third line  
+    }  
+}  
