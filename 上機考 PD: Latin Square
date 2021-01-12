@@ -1,0 +1,67 @@
+import java.util.Scanner;  
+public class Main {  
+  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+        int count=0;  
+        int count1=0;  
+        while (input.hasNext()) {  
+            int n = input.nextInt();  
+            char compare;  
+            char[][] num =new char[n][n];  
+            char a;  
+            boolean answer=true;  
+            if(count!=0) {  
+                System.out.println();  
+            }  
+            if(n==-1){  
+                break;  
+            }  
+            if(n>0&&n<=26){  
+                for(int i=0;i<n;i++){  
+                for(int j=0; j<n;j++){  
+                 char cnum=input.next().charAt(0);  
+                 num[i][j]= cnum;  
+             }  
+         }      for(int i=0;i<n;i++){  
+                for (int j=0;j<n;j++){  
+                 compare=num[i][j];  
+                 for(int x=0;x<n;x++) {  
+                     if (num[i][x] == compare&&j!=x) {  
+                         answer = false;  
+                     }  
+                 }  
+                for(int y=0;y<n;y++){  
+                    if (num[y][j]==compare&&i!=y){  
+                        answer=false;  
+                    }  
+                }  
+             }  
+         }  
+            for (int k = 0; k < n; k++) {  
+                a = num[0][k];  
+                for (int t = 0; t < n; t++) {  
+                    for (int t1 = 0; t1 < n; t1++) {  
+                        if (a == num[t][t1]) {  
+                            count1++;  
+                        }  
+                    }  
+                    if (count1 == 0) {  
+                        answer = false;  
+                    }  
+                    count1=0;  
+                }  
+            }  
+  
+            if(answer){  
+           System.out.println("The input array is a Latin square");  
+            count++;  
+       }  
+            else{  
+            System.out.println("The input array is not a Latin square");  
+            count++;  
+       }  
+            }  
+        }  
+    }  
+}  
