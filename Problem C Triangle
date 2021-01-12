@@ -1,0 +1,86 @@
+import java.util.Scanner;  
+import java.lang.Math;  
+import java.awt.geom.Point2D;  
+public class Main {  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+        int num;  
+        num= input.nextInt();  
+        while(num!=0){  
+            double x1= input.nextDouble();  
+            double y1= input.nextDouble();  
+            double x2=input.nextDouble();  
+            double y2=input.nextDouble();  
+            double x3= input.nextDouble();  
+            double y3= input.nextDouble();  
+            double a,b,c;  
+            double temp;  
+            Point2D p1 = new Point2D.Double(x1, y1);  
+            Point2D p2 = new Point2D.Double(x2, y2);  
+            Point2D p3 = new Point2D.Double(x3, y3);  
+            Point A=new Point(x1,y1,x2,y2);  
+            Point B=new Point(x2,y2,x3,y3);  
+            Point C=new Point(x1,y1,x3,y3);  
+            a=A.dis();  
+            b=B.dis();  
+            c=C.dis();  
+            Triangle tri = new Triangle(x1,y1,x2,y2,x3,y3);  
+            if(a>b){  
+                temp=a;  
+                a=b;  
+                b=temp; }  
+            if(a>c){  
+                temp=a;  
+                a=c;;  
+                c=temp; }  
+            if(b>c){  
+                temp=b;  
+                b=c;  
+                c=temp; }  
+            if(tri.area()!=0) {  
+                System.out.printf("%.3f %.3f %.3f %.3f\n",a,b,c,tri.area());}  
+            else {  
+                System.out.println("Just Line!"); }  
+            num--;  
+        }  
+    }  
+}  
+  
+class Point{  
+    double ax1, ax2, ay1, ay2;  
+    Point(double x1, double y1, double x2, double y2) {  
+        ax1 = x1;  
+        ax2 = x2;  
+        ay1 = y1;  
+        ay2 = y2;  
+    }  
+    public double dis() {  
+        Point2D p1 = new Point2D.Double(ax1, ay1);  
+        Point2D p2 = new Point2D.Double(ax2, ay2);  
+        double dis = p1.distance(p2);  
+        return dis;  
+    }  
+}  
+  
+class Triangle {  
+    double ax1, ax2, ax3, ay1, ay2, ay3;  
+    Triangle(double x1, double y1, double x2, double y2, double x3, double y3) {  
+        ax1 = x1;  
+        ax2 = x2;  
+        ax3 = x3;  
+        ay1 = y1;  
+        ay2 = y2;  
+        ay3 = y3;  
+    }  
+    double area() {  
+        Point2D aa = new Point2D.Double(ax1, ay1);  
+        Point2D bb = new Point2D.Double(ax2, ay2);  
+        Point2D cc = new Point2D.Double(ax3, ay3);  
+        double a = aa.distance(bb);  
+        double b = bb.distance(cc);  
+        double c = aa.distance(cc);  
+        double s = (a + b + c) / 2;  
+        double area = Math.sqrt(s * (s - a) * (s - b) * (s - c));  
+        return area;  
+    }  
+}  
