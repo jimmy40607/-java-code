@@ -1,0 +1,167 @@
+import java.util.*;  
+import java.lang.*;  
+import java.math.BigDecimal;  
+public class Main {  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+        String str = new String();  
+        String[] num = new String[4];  
+        char[] ope = new char[3];  
+        while (input.hasNextLine()) {  
+            int atimes = -1;  
+            int btimes = -1;  
+            str = input.nextLine();  
+            StringTokenizer stra = new StringTokenizer(str, " +-*/%");  
+            while (stra.hasMoreTokens()) {  
+                atimes++;  
+                num[atimes] = stra.nextToken();  
+            }  
+            StringTokenizer strb = new StringTokenizer(str, " .0123456789");  
+            while (strb.hasMoreTokens()) {  
+                btimes++;  
+                ope[btimes] = strb.nextToken().charAt(0);  
+            }  
+            if (atimes == 2) {  
+                char x = ope[0];  
+                char y = ope[1];  
+                BigDecimal a = new BigDecimal(num[0]);  
+                BigDecimal b = new BigDecimal(num[1]);  
+                BigDecimal c = new BigDecimal(num[2]);  
+                System.out.printf("%.1f %c %.1f %c %.1f = %.1f\n", a.doubleValue(), ope[0], b.doubleValue(), ope[1], c.doubleValue(), three(a, b, c, x, y).doubleValue());  
+            }  
+            if (atimes == 1) {  
+                char x = ope[0];  
+                BigDecimal a = new BigDecimal(num[0]);  
+                BigDecimal b = new BigDecimal(num[1]);  
+                System.out.printf("%.1f %c %.1f = %.1f\n", a.doubleValue(), ope[0], b.doubleValue(), two(a, b, x).doubleValue());  
+            }  
+            if (str.charAt(0) == '-') {  
+                System.out.printf("-%.1f\n", Double.valueOf(num[0]));  
+            }  
+            if (atimes == 0&&str.charAt(0) != '-') {  
+                System.out.printf("%.1f\n", Double.valueOf(num[0]));  
+            }  
+        }  
+    }  
+    public static BigDecimal three(BigDecimal a,BigDecimal b,BigDecimal c ,char x,char y){  
+        BigDecimal sum=new BigDecimal(0);  
+        if((x=='*') || (x=='/') || (x=='%')) {  
+            if (x == '*') {  
+                sum = a.multiply(b);  
+                if (y == '+') {  
+                    sum = sum.add(c);  
+                }  
+                if (y == '-') {  
+                    sum = sum.subtract(c);  
+                }  
+                if (y == '*') {  
+                    sum = sum.multiply(c);  
+                }  
+                if (y == '/') {  
+                    sum = sum.divide(c);  
+                }  
+                if (y == '%') {  
+                    sum = sum.remainder(c);  
+                }  
+            }  
+            if (x == '/') {  
+                sum = a.divide(b);  
+                if (y == '+') {  
+                    sum = sum.add(c);  
+                }  
+                if (y == '-') {  
+                    sum = sum.subtract(c);  
+                }  
+                if (y == '*') {  
+                    sum = sum.multiply(c);  
+                }  
+                if (y == '/') {  
+                    sum = sum.divide(c);  
+                }  
+                if (y == '%') {  
+                    sum = sum.remainder(c);  
+                }  
+            }  
+            if (x == '%') {  
+                sum = a.remainder(b);  
+                if (y == '+') {  
+                    sum = sum.add(c);  
+                }  
+                if (y == '-') {  
+                    sum = sum.subtract(c);  
+                }  
+                if (y == '*') {  
+                    sum = sum.multiply(c);  
+                }  
+                if (y == '/') {  
+                    sum = sum.divide(c);  
+                }  
+                if (y == '%') {  
+                    sum = sum.remainder(c);  
+                }  
+            }  
+        }  
+        if((x=='+')&&(y=='+')){  
+            sum=a.add(b);  
+            sum=sum.add(c);  
+        }  
+        if((x=='+')&&(y=='-')){  
+            sum=a.add(b);  
+            sum=sum.subtract(c);  
+        }  
+        if((x=='+')&& (y=='*')){  
+            sum=b.multiply(c);  
+            sum=sum.add(a);  
+        }  
+        if((x=='+') && (y=='/')){  
+            sum=b.divide(c);  
+            sum=sum.add(a);  
+        }  
+        if((x=='+') && (y=='%')){  
+            sum=b.remainder(c);  
+            sum=sum.add(a);  
+        }  
+        if((x=='-')&&(y=='-')){  
+            sum=a.subtract(b);  
+            sum=sum.subtract(c);  
+        }  
+        if((x=='-')&&(y=='+')){  
+            sum=a.subtract(b);  
+            sum=sum.add(c);  
+        }  
+        if((x=='-') && (y=='*')){  
+            sum=b.multiply(c);  
+            sum=a.subtract(sum);  
+        }  
+        if((x=='-') && (y=='/')){  
+            sum=b.divide(c);  
+            sum=a.subtract(sum);  
+        }  
+        if((x=='-') && (y=='%')){  
+            sum=b.remainder(c);  
+            sum=a.subtract(sum);  
+        }  
+  
+        return sum;  
+    }  
+  
+    public static BigDecimal two(BigDecimal a,BigDecimal b ,char x) {  
+        BigDecimal sum = new BigDecimal(0);  
+        if (x == '+') {  
+            sum = a.add(b);  
+        }  
+        if (x == '-') {  
+            sum = a.subtract(b);  
+        }  
+        if (x == '*') {  
+            sum = a.multiply(b);  
+        }  
+        if (x == '/') {  
+            sum = a.divide(b);  
+        }  
+        if (x == '%') {  
+            sum = a.remainder(b);  
+        }  
+return  sum;  
+    }  
+}  
