@@ -1,0 +1,68 @@
+import java.util.Scanner;  
+import java.util.Stack;  
+import java.util.StringTokenizer;  
+public class Main {  
+  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+        Stack<Character> stack1 = new Stack<Character>();  
+        String str = new String();  
+        String store = new String();  
+        int grade = 0;  
+        int newgrade;  
+        while (input.hasNextLine()) {  
+            str = input.nextLine();  
+            StringTokenizer st = new StringTokenizer(str, "+-*/()%", true);  
+            while (st.hasMoreTokens()) {  
+                store = st.nextToken();  
+                if (store.charAt(0) >= '0' && store.charAt(0) <= '9') {  
+                    System.out.print(store + " ");  
+                }  
+                if (store.equals("+") || store.equals("-")) {  
+                    while (!stack1.empty() && stack1.peek() != '(') {  
+                        System.out.print(stack1.peek() + " ");  
+                        stack1.pop();  
+                    }  
+                    stack1.push(store.charAt(0));  
+                    grade = 1;  
+                }  
+                if (store.equals("*") || store.equals("/") || store.equals("%")) {  
+                    while (!stack1.empty() && stack1.peek() != '(') {  
+                        newgrade = 2;  
+                        if (newgrade > grade) {  
+                            break;  
+                        }  
+                        if (newgrade == grade) {  
+                            System.out.print(stack1.peek() + " ");  
+                            stack1.pop();  
+                            break;  
+                        }  
+                    }  
+                    stack1.push(store.charAt(0));  
+                    grade = 2;  
+                }  
+                if (store.equals("(")) {  
+                    stack1.push(store.charAt(0));  
+                }  
+                if (store.equals(")")) {  
+                    while (stack1.peek() != '(') {  
+                        System.out.print(stack1.peek() + " ");  
+                        stack1.pop();  
+                    }  
+                    stack1.pop();  
+              if (!stack1.empty() && (stack1.peek() == '*' || stack1.peek() == '/' || stack1.peek() == '%')) {  
+                    grade = 2;  
+                }  
+                if (!stack1.empty() && (stack1.peek() == '+' || stack1.peek() == '-')) {  
+                    grade = 1;  
+                }  
+        }  
+            }  
+            while (!stack1.empty()) {  
+                System.out.print(stack1.peek() + " ");  
+                stack1.pop();  
+            }  
+        }  
+    System.out.println();  
+    }  
+}  
