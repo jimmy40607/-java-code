@@ -1,0 +1,152 @@
+
+import java.util.Scanner;  
+import java.util.Stack;  
+import java.util.StringTokenizer;  
+import java.math.BigDecimal;  
+public class Main {  
+    public static void main(String[] args) {  
+        Stack<String>mark=new Stack<String>();  
+        String[] str = new String[1000];  
+        Scanner input = new Scanner(System.in);  
+        String s = new String();  
+        int count;  
+       process a = new process();  
+        s = input.nextLine();  
+        str = a.oristr(s);  
+        str=a.postfix(str);  
+       count=a.outindexTimes();  
+for(int i=0;i<count;i++){  
+    if(str[i].equals("+")||str[i].equals("-")||str[i].equals("/")||str[i].equals("%")||str[i].equals("*")){  
+        BigDecimal first=new BigDecimal(mark.peek());  
+        mark.pop();  
+        BigDecimal second=new BigDecimal(mark.peek());  
+        mark.pop();  
+        BigDecimal third= a.sum(second,first,str[i].charAt(0));  
+        mark.push(third.toString());  
+    }  
+  
+        else{  
+      mark.push(str[i]);  
+    }  
+}  
+  
+       System.out.printf("%.2f\n",Float.valueOf(mark.peek()));  
+        mark.pop();  
+    }  
+}  
+    class process{  
+     int indextimes;  
+    process(){}  
+        int alltimes;  
+  
+    int outalltimes(){  
+        return  alltimes;  
+}  
+    int outindexTimes(){  
+        return indextimes;  
+        }  
+  
+  
+        String[] oristr (String s){  
+        int i = 0;  
+        String[] retstr = new String[1000];  
+        StringTokenizer st = new StringTokenizer(s, "+-*/()%", true);  
+        while (st.hasMoreTokens()) {  
+            retstr[i] = st.nextToken();  
+            i++;  
+        }  
+        alltimes = i;  
+        return retstr;  
+    }  
+        String[] postfix (String[]s){  
+        String[] restr = new String[1000];  
+        Stack<Character> stack1 = new Stack<Character>();  
+        String store = new String();  
+        int grade = 0;  
+        int newgrade = 0;  
+        int btimes = 0;  
+        int block = 0;  
+        while (btimes < alltimes) {  
+            store = s[btimes];  
+            if (store.charAt(0) >= '0' && store.charAt(0) <= '9') {  
+                restr[block] = store;  
+                block++;  
+            }  
+            if (store.equals("+") || store.equals("-")) {  
+                while (!stack1.empty() && stack1.peek() != '(') {  
+                    restr[block] = stack1.peek().toString();  
+                    stack1.pop();  
+                    block++;  
+                }  
+                stack1.push(store.charAt(0));  
+                grade = 1;  
+            }  
+            if (store.equals("*") || store.equals("/") || store.equals("%")) {  
+                while (!stack1.empty() && stack1.peek() != '(') {  
+                    newgrade = 2;  
+                    if (newgrade > grade) {  
+                        break;  
+                    }  
+                    if (newgrade == grade) {  
+                        restr[block] = stack1.peek().toString();  
+                        stack1.pop();  
+                        block++;  
+                        break;  
+                    }  
+                }  
+                stack1.push(store.charAt(0));  
+                grade = 2;  
+            }  
+            if (store.equals("(")) {  
+                stack1.push(store.charAt(0));  
+            }  
+            if (store.equals(")")) {  
+                while (stack1.peek() != '(') {  
+                    restr[block] = stack1.peek().toString();  
+                    block++;  
+                    stack1.pop();  
+                }  
+                stack1.pop();  
+                if (!stack1.empty() && (stack1.peek() == '*' || stack1.peek() == '/' || stack1.peek() == '%')) {  
+                    grade = 2;  
+                }  
+                if (!stack1.empty() && (stack1.peek() == '+' || stack1.peek() == '-')) {  
+                    grade = 1;  
+                }  
+            }  
+            btimes++;  
+        }  
+        while (!stack1.empty()) {  
+            restr[block] = stack1.peek().toString();  
+            stack1.pop();  
+            block++;  
+        }  
+        indextimes = block;  
+     /*  for(int i=0;i<block;i++){ 
+            System.out.print(restr[i]+" "); 
+        }*/  
+        return restr;  
+    }  
+  
+  
+  
+        BigDecimal sum (BigDecimal a, BigDecimal b ,char x){  
+        BigDecimal sum = new BigDecimal(0);  
+        if (x == '+') {  
+            sum = a.add(b);  
+        }  
+        if (x == '-') {  
+            sum = a.subtract(b);  
+        }  
+        if (x == '*') {  
+            sum = a.multiply(b);  
+        }  
+        if (x == '/') {  
+            sum = a.divide(b);  
+        }  
+        if (x == '%') {  
+            sum = a.remainder(b);  
+        }  
+        return sum;  
+    }  
+    }  
