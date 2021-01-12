@@ -1,0 +1,50 @@
+import java.util.Scanner;  
+import java.lang.Math;  
+public class Main {  
+  
+    public static void main(String[] args) {  
+        Scanner input = new Scanner(System.in);  
+        while (input.hasNext()) {  
+            int num = input.nextInt();  
+            String str = new String();  
+            int count = 0;  
+            int[] arr = new int[num];  
+  
+            if (num == 0) {  
+                System.out.println();  
+                continue;  
+            }  
+            for (int i = 2; i <= 1000000; i++) {  
+                boolean isprime = true;  
+                for (int j = 2; j <= Math.sqrt(i); j++) {  
+                    if (i % j == 0) {  
+                        isprime = false;  
+                        break;  
+                    }  
+                }  
+                if (isprime) {  
+                    str = String.valueOf(i);  
+                    String reverse = new StringBuffer(str).reverse().toString();  
+  
+                    if (str.equals(reverse)) {  
+                        arr[count] = i;  
+                        count++;  
+                        if(count==num){  
+                            break;  
+                        }  
+                    }  
+                }  
+            }  
+            for(int i=0;i<num;i++){  
+  
+                if((i+1)%10==0||i==(num-1)){  
+                    System.out.print(arr[i]);  
+                    System.out.println(); }  
+                  else{  
+                  System.out.print(arr[i]+" ");  
+                  }  
+              }  
+  
+               }  
+            }  
+        }  
